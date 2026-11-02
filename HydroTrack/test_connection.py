@@ -1,4 +1,4 @@
-from supabase import supabase
+from db import supabase
 
 result = supabase.table("users").select("*").execute()
 
