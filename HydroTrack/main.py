@@ -1,7 +1,7 @@
 import streamlit as st
-from views.water_log import show as show_water_log
 from views.profile import show as show_profile
 from views.dashboard import show as show_dashboard
+from views.water_log import show as show_water_log
 from services import register_user, login_user
 
 # =========================
@@ -35,9 +35,6 @@ if "page" not in st.session_state:
 
 
 
-def show_water_log():
-    st.title("💧 Water Log")
-    st.write("Water Log coming soon...")
 
 
 def show_analytics():
