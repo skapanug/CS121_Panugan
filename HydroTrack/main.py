@@ -163,7 +163,7 @@ else:
             st.rerun()
 
     if page == "Dashboard":
-    show_dashboard(
+        show_dashboard(
         st.session_state.user
     )
 
