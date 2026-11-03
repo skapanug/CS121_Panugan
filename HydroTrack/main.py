@@ -1,5 +1,6 @@
 import streamlit as st
 from views.profile import show as show_profile
+from views.analytics import show as show_analytics
 from views.dashboard import show as show_dashboard
 from views.water_log import show as show_water_log
 from services import register_user, login_user
@@ -28,27 +29,11 @@ if "page" not in st.session_state:
     st.session_state.page = "Dashboard"
 
 
-# =========================
-# PLACEHOLDER PAGES
-# =========================
 
 
 
 
-
-
-def show_analytics():
-    st.title("📊 Analytics")
-    st.write("Analytics coming soon...")
-
-
-
-
-
-# =========================
 # LOGIN / REGISTER
-# =========================
-
 if not st.session_state.logged_in:
 
     st.title("💧 HydroTrack")
@@ -58,7 +43,7 @@ if not st.session_state.logged_in:
         ["Login", "Register"]
     )
 
-    # -------------------------
+    
     # LOGIN
     # -------------------------
 
@@ -94,7 +79,7 @@ if not st.session_state.logged_in:
                     "Invalid username or password."
                 )
 
-    # -------------------------
+  
     # REGISTER
     # -------------------------
 
@@ -132,7 +117,6 @@ if not st.session_state.logged_in:
 
 # =========================
 # LOGGED IN AREA
-# =========================
 
 else:
 
@@ -171,7 +155,10 @@ else:
 
 
     elif page == "Analytics":
-        show_analytics()
+        show_analytics(
+        st.session_state.user
+    )
+
 
     elif page == "Profile":
         show_profile(
