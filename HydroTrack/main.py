@@ -1,4 +1,5 @@
 import streamlit as st
+from views.profile import show as show_profile
 from views.dashboard import show as show_dashboard
 from services import register_user, login_user
 
@@ -43,9 +44,7 @@ def show_analytics():
     st.write("Analytics coming soon...")
 
 
-def show_profile():
-    st.title("👤 Profile")
-    st.write("Profile coming soon...")
+
 
 
 # =========================
@@ -174,4 +173,6 @@ else:
         show_analytics()
 
     elif page == "Profile":
-        show_profile()
+        show_profile(
+        st.session_state.user
+    )
