@@ -1,20 +1,58 @@
 import streamlit as st
 from services import register_user, login_user
 
+# =========================
+# PAGE CONFIG
+# =========================
+
 st.set_page_config(
     page_title="HydroTrack",
     page_icon="💧",
     layout="wide"
 )
 
-# Session state
+# =========================
+# SESSION STATE
+# =========================
+
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
 if "user" not in st.session_state:
     st.session_state.user = None
 
-# If not logged in, show Login/Register
+if "page" not in st.session_state:
+    st.session_state.page = "Dashboard"
+
+
+# =========================
+# PLACEHOLDER PAGES
+# =========================
+
+def show_dashboard():
+    st.title("🏠 Dashboard")
+    st.write("Dashboard coming soon...")
+
+
+def show_water_log():
+    st.title("💧 Water Log")
+    st.write("Water Log coming soon...")
+
+
+def show_analytics():
+    st.title("📊 Analytics")
+    st.write("Analytics coming soon...")
+
+
+def show_profile():
+    st.title("👤 Profile")
+    st.write("Profile coming soon...")
+
+
+# =========================
+# LOGIN / REGISTER
+# =========================
+
 if not st.session_state.logged_in:
 
     st.title("💧 HydroTrack")
@@ -24,7 +62,10 @@ if not st.session_state.logged_in:
         ["Login", "Register"]
     )
 
-    # LOGIN TAB
+    # -------------------------
+    # LOGIN
+    # -------------------------
+
     with login_tab:
 
         username = st.text_input(
@@ -46,17 +87,21 @@ if not st.session_state.logged_in:
             )
 
             if user:
+
                 st.session_state.logged_in = True
                 st.session_state.user = user[0]
-
-                st.success("Login successful!")
 
                 st.rerun()
 
             else:
-                st.error("Invalid username or password")
+                st.error(
+                    "Invalid username or password."
+                )
 
-    # REGISTER TAB
+    # -------------------------
+    # REGISTER
+    # -------------------------
+
     with register_tab:
 
         new_username = st.text_input(
@@ -89,20 +134,43 @@ if not st.session_state.logged_in:
                     f"Registration failed: {e}"
                 )
 
-# Logged in
+# =========================
+# LOGGED IN AREA
+# =========================
+
 else:
 
-    st.success(
-        f"Welcome, {st.session_state.user['username']}!"
-    )
+    with st.sidebar:
 
-    st.write(
-        "Dashboard coming soon..."
-    )
+        st.title("💧 HydroTrack")
 
-    if st.button("Logout"):
+        page = st.radio(
+            "Navigation",
+            [
+                "Dashboard",
+                "Water Log",
+                "Analytics",
+                "Profile"
+            ]
+        )
 
-        st.session_state.logged_in = False
-        st.session_state.user = None
+        st.divider()
 
-        st.rerun()
+        if st.button("🚪 Logout"):
+
+            st.session_state.logged_in = False
+            st.session_state.user = None
+
+            st.rerun()
+
+    if page == "Dashboard":
+        show_dashboard()
+
+    elif page == "Water Log":
+        show_water_log()
+
+    elif page == "Analytics":
+        show_analytics()
+
+    elif page == "Profile":
+        show_profile()
