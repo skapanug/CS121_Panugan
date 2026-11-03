@@ -1,4 +1,5 @@
 import streamlit as st
+from views.dashboard import show as show_dashboard
 from services import register_user, login_user
 
 # =========================
@@ -29,9 +30,7 @@ if "page" not in st.session_state:
 # PLACEHOLDER PAGES
 # =========================
 
-def show_dashboard():
-    st.title("🏠 Dashboard")
-    st.write("Dashboard coming soon...")
+
 
 
 def show_water_log():
@@ -164,7 +163,9 @@ else:
             st.rerun()
 
     if page == "Dashboard":
-        show_dashboard()
+    show_dashboard(
+        st.session_state.user
+    )
 
     elif page == "Water Log":
         show_water_log()

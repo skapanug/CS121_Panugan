@@ -1,7 +1,58 @@
 import streamlit as st
 
+from services import (
+    get_goal,
+    get_water_logs,
+    calculate_progress,
+    get_hydration_status,
+    get_recommendation
+)
 
-def show():
+
+def show(user):
+
+    user_id = user["id"]
+
+    goal_data = get_goal(user_id)
+
+    if not goal_data:
+
+        st.title("🏠 Dashboard")
+
+        st.warning(
+            "No hydration goal set. Please set a hydration goal in your Profile page."
+        )
+
+        return
+
+    goal = goal_data[0]["daily_goal_ml"]
+
+    logs = get_water_logs(user_id)
+
+    total_intake = sum(
+        log["amount_ml"]
+        for log in logs
+    )
+
+    remaining = max(
+        goal - total_intake,
+        0
+    )
+
+    progress = calculate_progress(
+        total_intake,
+        goal
+    )
+
+    status = get_hydration_status(
+        total_intake,
+        goal
+    )
+
+    recommendation = get_recommendation(
+        total_intake,
+        goal
+    )
 
     st.title("🏠 Dashboard")
 
@@ -10,35 +61,37 @@ def show():
     with col1:
         st.metric(
             "🎯 Daily Goal",
-            "0 mL"
+            f"{goal} mL"
         )
 
     with col2:
         st.metric(
             "💧 Current Intake",
-            "0 mL"
+            f"{total_intake} mL"
         )
 
     with col3:
         st.metric(
             "🚰 Remaining",
-            "0 mL"
+            f"{remaining} mL"
         )
 
     st.divider()
 
     st.subheader("Hydration Progress")
 
-    st.progress(0)
+    st.progress(progress / 100)
 
-    st.write("0% Complete")
+    st.write(
+        f"{progress}% Complete"
+    )
 
     st.divider()
 
     st.subheader("Hydration Status")
 
     st.info(
-        "Please set a hydration goal."
+        status
     )
 
     st.divider()
@@ -46,5 +99,5 @@ def show():
     st.subheader("Recommendation")
 
     st.write(
-        "Set your hydration goal in the Profile page to begin tracking your progress."
+        recommendation
     )
