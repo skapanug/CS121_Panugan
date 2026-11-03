@@ -1,5 +1,8 @@
-from db import supabase
+from services import calculate_progress
 
-result = supabase.table("users").select("*").execute()
-
-print(result)
+print(
+    calculate_progress(
+        1500,
+        2500
+    )
+)
