@@ -104,8 +104,11 @@ def get_hydration_status(total_intake, goal):
     if total_intake >= goal:
         return "Hydrated"
 
-    if total_intake >= goal * 0.75:
+    elif total_intake >= goal * 0.75:
         return "Nearly Achieved"
+
+    elif total_intake >= goal * 0.50:
+        return "Moderately Hydrated"
 
     return "Needs More Water"
 

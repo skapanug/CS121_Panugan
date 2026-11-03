@@ -1,4 +1,5 @@
 import streamlit as st
+from datetime import datetime, timedelta
 
 from services import (
     add_water_log,
@@ -59,9 +60,21 @@ def show(user):
 
             with col1:
 
-                st.write(
-                    f"📅 {log['logged_at']}"
-                )
+                with col1:
+
+                    utc_time = datetime.fromisoformat(
+                        log["logged_at"]
+                    )
+
+                    ph_time = utc_time + timedelta(hours=8)
+
+                    formatted_date = ph_time.strftime(
+                        "%b %d, %Y %I:%M %p"
+                    )
+
+                    st.write(
+                        f"📅 {formatted_date}"
+                    )
 
             with col2:
 
