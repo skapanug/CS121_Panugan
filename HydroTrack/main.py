@@ -1,4 +1,5 @@
 import streamlit as st
+from views.water_log import show as show_water_log
 from views.profile import show as show_profile
 from views.dashboard import show as show_dashboard
 from services import register_user, login_user
@@ -167,7 +168,10 @@ else:
     )
 
     elif page == "Water Log":
-        show_water_log()
+        show_water_log(
+        st.session_state.user
+    )
+
 
     elif page == "Analytics":
         show_analytics()
