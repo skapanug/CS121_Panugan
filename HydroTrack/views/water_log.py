@@ -60,21 +60,19 @@ def show(user):
 
             with col1:
 
-                with col1:
+                utc_time = datetime.fromisoformat(
+                    log["logged_at"]
+                )
 
-                    utc_time = datetime.fromisoformat(
-                        log["logged_at"]
-                    )
+                ph_time = utc_time + timedelta(hours=8)
 
-                    ph_time = utc_time + timedelta(hours=8)
+                formatted_date = ph_time.strftime(
+                    "%b %d, %Y %I:%M %p"
+                )
 
-                    formatted_date = ph_time.strftime(
-                        "%b %d, %Y %I:%M %p"
-                    )
-
-                    st.write(
-                        f"📅 {formatted_date}"
-                    )
+                st.write(
+                    f"📅 {formatted_date}"
+                )
 
             with col2:
 
