@@ -50,7 +50,7 @@ def show(user):
 
         return
 
-    for log in logs:
+    for log in reversed(logs):
 
         with st.container():
 
