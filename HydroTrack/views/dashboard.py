@@ -19,9 +19,7 @@ def show(user):
 
         st.title("🏠 Dashboard")
 
-        st.warning(
-            "No hydration goal set. Please set a hydration goal in your Profile page."
-        )
+        st.warning("No hydration goal set. Please set a hydration goal in your Profile page.")
 
         return
 

@@ -24,7 +24,7 @@ def show(user):
     df = pd.DataFrame(logs)
 
  
-    # Metrics
+    
     total_intake = df["amount_ml"].sum()
 
     average_intake = round(
